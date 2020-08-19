@@ -37,7 +37,7 @@
 
                     <span class="photo-container" id="eric-photo">
                         <img
-                            src="../../public/images/stock_employees.jpg"
+                            src="../../public/images/colorado-sun.jpg"
                             alt="John Jones and Eric Heringer"
                             class="company-photo"
                         >

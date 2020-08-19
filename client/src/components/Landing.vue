@@ -16,9 +16,9 @@
                     <div class="slogan">
                         <h1>Maverick Mineral Partners</h1>
                     </div>
-                    <div class="sub-slogan">
+                    <!-- <div class="sub-slogan">
                         <h4>The remainder of our site is currently under construction. However, please feel free to call us directly with any questions. Thank you.</h4>
-                    </div>
+                    </div> -->
                     <!-- <div class="our-services">
                         <router-link to="/company">
                             <b-button type="is-primary" size="is-large">

@@ -9,7 +9,7 @@
             </b-navbar-item>
         </template>
         <template slot="start">
-            <!-- <b-navbar-item>
+            <b-navbar-item>
                 <router-link
                     class="nav-link"
                     to="/company">
@@ -22,32 +22,32 @@
                     to="/aboutus">
                         About Us
                 </router-link>
-            </b-navbar-item> -->
-            <!-- <b-navbar-item href="#">
+            </b-navbar-item>
+            <b-navbar-item href="#">
                 <router-link
                     class="nav-link"
                     to="/testimonials">
                         Testimonials
                 </router-link>
-            </b-navbar-item> -->
-            <!-- <b-navbar-item href="#">
+            </b-navbar-item>
+            <b-navbar-item href="#">
                 <router-link
                     class="nav-link"
                     to="/contact-us">
                         Contact Us
                 </router-link>
-            </b-navbar-item> -->
+            </b-navbar-item>
         </template>
         <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <!-- <a class="button is-primary">
+                    <a class="button is-primary">
                         <router-link
                             class="request-offer"
                             to="/request-offer">
                                 <strong>Request an Offer</strong>
                         </router-link>
-                    </a> -->
+                    </a>
                 </div>
             </b-navbar-item>
         </template>
