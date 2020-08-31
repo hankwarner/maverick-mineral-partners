@@ -1,8 +1,10 @@
+const axios = require('axios');
+
 export default {
-    async requestOfferToMav(offer) {
-        console.log(offer);
-        var response = await fetch('/api/request');
-        console.log(response);
-        //return await response.json();
+    async requestOfferToMav(req) {
+        var path = '/api/request';
+        var response = await axios.post(path, req)
+        
+        return response;
     }
 }
