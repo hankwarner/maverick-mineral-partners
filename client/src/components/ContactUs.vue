@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import Email from '@/services/Email';
+import EmailService from '@/services/Email';
 import PageFooter from '@/components/Footer';
 
 export default {
@@ -90,7 +90,7 @@ export default {
             try {
                 this.validateForm();
 
-                var response = await Email.contactUs({
+                var response = await EmailService.contactUs({
                     name: this.name,
                     email: this.email,
                     phone: this.phone,
