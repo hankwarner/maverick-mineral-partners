@@ -157,7 +157,6 @@
 </template>
 
 <script>
-//import Email from '@/services/Email';
 import ReqOffer from '@/services/RequestOfferService';
 import PageFooter from '@/components/Footer';
 
@@ -192,25 +191,10 @@ export default {
 
     methods: {
         async requestOffer() {
-            this.loading = true;
-            console.log("requestOffer herererer called");
             try {
-                //this.validateForm();
+                this.loading = true;
 
-                // var response = await Email.requestOffer({
-                //     firstName: this.firstName,
-                //     lastName: this.lastName,
-                //     email: this.email,
-                //     phone: this.phone,
-                //     address: this.address,
-                //     description: this.description,
-                //     acres: this.acres,
-                //     state: this.state,
-                //     county: this.county,
-                //     leased: this.leased,
-                //     producing: this.producing,
-                //     comments: this.comments,
-                // });
+                this.validateForm();
 
                 var response = await ReqOffer.requestOfferToMav({
                     firstName: this.firstName,

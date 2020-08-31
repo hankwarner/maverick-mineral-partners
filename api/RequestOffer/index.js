@@ -1,24 +1,23 @@
 const sgMail = require('@sendgrid/mail');
 
 module.exports = {
-    requestOffer(req, res) {
+    requestOffer(context, res) {
         try {
-            console.log("requestOffer in api called");
-            var request = req.body;
-            var firstName = request.firstName;
-            var lastName = request.lastName;
+            var reqBody = context.req.body;
+			var firstName = reqBody.firstName;
+            var lastName = reqBody.lastName;
             var fullName = firstName+" "+lastName;
-            var email = request.email;
-            var phone = request.phone;
-            var description = request.description;
-            var state = request.state;
-            var county = request.county;
-            var acres = request.acres;
-            var leased = request.leased;
-            var producing = request.producing;
-            var comments = request.comments;
+            var email = reqBody.email || "";
+            var phone = reqBody.phone || "";;
+            var description = reqBody.description || "";;
+            var state = reqBody.state || "";;
+            var county = reqBody.county || "";;
+            var acres = reqBody.acres || "";;
+            var leased = reqBody.leased || "";;
+            var producing = reqBody.producing || "";;
+            var comments = reqBody.comments || "";;
 
-			sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+			sgMail.setApiKey(process.env["SENDGRID_API_KEY"]);
 
             var message = {
 				//to: 'info@mavmp.com',
@@ -44,16 +43,22 @@ module.exports = {
 			context.res = {
 				body: {
 					status: 200,
-					text: "Hello from the API"
+					text: "Email successfully sent."
 				}
 			};
 
-            //return res.status(200).send("Email successfully sent.");
-
         } catch(err) {
-            console.log(err);
-            //return res.status(400).send(err);
-        }
+			console.log(err);
+			context.res = {
+				body: {
+					status: 500,
+					text: err.message
+				}
+			};
+
+		} finally {
+			context.done();
+		}
     },
 
     // contactUs(req, res) {
