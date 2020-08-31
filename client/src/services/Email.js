@@ -5,7 +5,7 @@ export default {
         try {
             console.log("requestOffer called");
             console.log("formData "+JSON.stringify(formData));
-            Api().post('request-offer', formData);
+            //Api().post('request-offer', formData);
         } catch (err) {
             console.log(err);
             return res.send(err);
@@ -16,7 +16,7 @@ export default {
         try {
             console.log("contactUs called");
             console.log("formData "+JSON.stringify(formData));
-            Api().post('contact-us', formData);
+            //Api().post('contact-us', formData);
         } catch (err) {
             console.log(err);
             return res.send(err);
