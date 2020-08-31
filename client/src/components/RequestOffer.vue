@@ -53,11 +53,6 @@
                             </p>
                         </div>
                         <hr>
-                        <!-- <div class="columns">
-                            <b-field class="column" id="name" label="Property Street Address">
-                                <b-input v-model="address"></b-input>
-                            </b-field>
-                        </div> -->
                         <div class="columns">
                             
                         </div>
@@ -162,7 +157,8 @@
 </template>
 
 <script>
-import Email from '@/services/Email';
+//import Email from '@/services/Email';
+import ReqOffer from '@/services/RequestOfferService';
 import PageFooter from '@/components/Footer';
 
 export default {
@@ -197,11 +193,26 @@ export default {
     methods: {
         async requestOffer() {
             this.loading = true;
-
+            console.log("requestOffer herererer called");
             try {
-                this.validateForm();
+                //this.validateForm();
 
-                var response = await Email.requestOffer({
+                // var response = await Email.requestOffer({
+                //     firstName: this.firstName,
+                //     lastName: this.lastName,
+                //     email: this.email,
+                //     phone: this.phone,
+                //     address: this.address,
+                //     description: this.description,
+                //     acres: this.acres,
+                //     state: this.state,
+                //     county: this.county,
+                //     leased: this.leased,
+                //     producing: this.producing,
+                //     comments: this.comments,
+                // });
+
+                var response = await ReqOffer.requestOfferToMav({
                     firstName: this.firstName,
                     lastName: this.lastName,
                     email: this.email,
