@@ -59,44 +59,5 @@ module.exports = {
 		} finally {
 			context.done();
 		}
-    },
-
-    // contactUs(req, res) {
-    //     try {
-    //         console.log("contactUs called");
-    //         var request = req.body;
-    //         var name = request.name;
-    //         var email = request.email;
-    //         var phone = request.phone;
-    //         var question = request.question;
-
-    //         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-    //         var message = {
-    //             to: 'info@mavmp.com',
-    //             from: 'contactus@mavmp.com',
-    //             subject: 'New Question from '+ name,
-    //             text: 
-    //                 'Contact Us Form Submittal'+
-    //                 'Name: '+ name +
-    //                 'Email: '+ email +
-    //                 'Phone: '+ phone +
-    //                 'How can we help you?: '+question,
-    //             html:
-    //                 '<strong>Contact Us Form Submittal</strong>'+
-    //                 '<b><p> Name: </b>'+ name +'<br>'+
-    //                 '<b><p> Email: </b>'+ email +'<br>'+
-    //                 '<b><p> Phone: </b>'+ phone +'<br>'+
-    //                 '<b><p> How can we help you?: </b>'+ question +'<br>'+
-    //                 '</p>',
-    //         };
-    //         sgMail.send(message);
-
-    //         return res.status(200).send("Email successfully sent.");
-
-    //     } catch(err) {
-    //         console.log(err);
-    //         return res.status(400).send(err);
-    //     }
-    // }
+    }
 }
