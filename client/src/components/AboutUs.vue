@@ -14,15 +14,14 @@
 
             <section class="container" id="bio-container">
                 <div v-for="employee in employees" :key="employee.id" class="individual-bio-container">
-                    <span class="photo-container" id="eric-photo">
+                    <span class="photo-container">
                         <img
                             v-bind:src="employee.image"
                             alt="Headshot"
                             class="headshots"
-                            id="eric-headshot"
                         >
                     </span>
-                    <span class="text" id="eric-text">
+                    <span class="text">
                         <h2>{{employee.name}}</h2>
                         <h3>{{employee.title}}</h3>
                         <h4>{{employee.email}}</h4>
@@ -30,7 +29,7 @@
                         <a v-bind:href="employee.linkedIn">
                             <font-awesome-icon size="2x" :icon="['fab', 'linkedin']" />
                         </a>
-                        <p id="eric-text">
+                        <p>
                             {{employee.bio}}
                         </p>
                     </span>
@@ -59,11 +58,6 @@ export default {
         return {
             loading: false,
             employees: [],
-            // name: "",
-            // email: "",
-            // phone: "",
-            // bio: "",
-            // linkedIn: "",
             error: null,
         }
     },
@@ -75,13 +69,12 @@ export default {
     methods: {
         async getEmployees() {
             try {
-                console.log("getEmployees called from component");
                 this.loading = true;
 
                 var response = await EmployeeService.getEmployees();
+                console.log(response);
 
-                response.forEach(emp => this.employees.push(emp));
-                console.log(this.employees);
+                //response.forEach(emp => this.employees.push(emp));
 
             } catch(err) {
                 console.log(err);
@@ -188,7 +181,10 @@ export default {
             height: 26rem;
             width: 38rem;
             text-align: left;
-            // font-family: Perpetua Titling MT;
+        }
+
+        .text:first-of-type {
+            top: 33rem;
         }
 
         h2 {
@@ -200,12 +196,10 @@ export default {
         h3 {
             font-weight: bold;
             font-size: 1.3rem;
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
         }
 
         p {
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
             margin-top: 1rem;
         }
@@ -219,6 +213,10 @@ export default {
             width: 25rem;
         }
 
+        .photo-container:first-of-type {
+            top: 35rem;
+        }
+
         .headshots {
             height: 14rem;
             box-shadow: -2px -2px 2px rgba(34,34,34,0.6);
@@ -228,14 +226,6 @@ export default {
         hr {
             width: 35rem;
             margin-left: 32rem;
-        }
-
-        #eric-photo {
-            top: 35rem;
-        }
-
-        #eric-text {
-            top: 33rem;
         }
     }
 
@@ -256,7 +246,6 @@ export default {
             color: white;
             top: 2.8rem;
             left: 2.8rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 3rem;
@@ -279,23 +268,21 @@ export default {
         h3 {
             font-weight: bold;
             font-size: 1.3rem;
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
         }
 
         p {
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
             margin-top: 1rem;
             margin-left: 1rem;
             margin-right: 1rem;
         }
 
-        #eric-text {
+        .text:first-of-type {
             margin-bottom: 3rem;
         }
 
-        #eric-headshot {
+        .headshots:first-of-type {
             margin-top: 3rem;
         }
 
@@ -330,7 +317,6 @@ export default {
             color: white;
             top: 3rem;
             left: 2.5rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 2.5rem;
@@ -353,23 +339,21 @@ export default {
         h3 {
             font-weight: bold;
             font-size: 1.3rem;
-            //font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
         }
 
         p {
-            //font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
             margin-top: 1rem;
             margin-left: 1rem;
             margin-right: 1rem;
         }
 
-        #eric-text {
+        .text:first-of-type {
             margin-bottom: 3rem;
         }
 
-        #eric-headshot {
+        .headshots:first-of-type{
             margin-top: 3rem;
         }
 
@@ -410,14 +394,12 @@ export default {
             color: white;
             top: 2rem;
             left: 3rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 2.5rem;
         }
-
-        #eric-headshot {
-            margin-top: 5rem;
+        .headshots:first-of-type {
+            margin-top: 3rem;
         }
 
         #john-headshot {
@@ -433,20 +415,17 @@ export default {
         h3 {
             font-weight: bold;
             font-size: 1.3rem;
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
         }
 
         p {
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
             margin-top: 1rem;
             margin-left: 1rem;
             margin-right: 1rem;
-            // margin-bottom: 9rem;
         }
 
-        #eric-text {
+        .text:first-of-type {
             margin-bottom: 4.5rem;
         }
 
@@ -456,7 +435,6 @@ export default {
         }
 
         #john-text {
-            //top: 33rem;
             margin-bottom: 9rem;
         }
     }
