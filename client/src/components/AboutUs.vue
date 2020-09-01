@@ -87,12 +87,50 @@
 <script>
 import BottomBanner from '@/components/BottomBanner';
 import PageFooter from '@/components/Footer';
+import EmployeeService from '@/services/Employee';
 
 export default {
   components: {
     BottomBanner,
     PageFooter
   },
+
+  data() {
+        return {
+            loading: false,
+            employees: [],
+            // name: "",
+            // email: "",
+            // phone: "",
+            // bio: "",
+            // linkedIn: "",
+            error: null,
+        }
+    },
+
+    mounted: function () {
+        this.getEmployees();
+    },
+
+    methods: {
+        async getEmployees() {
+            try {
+                console.log("getEmployees called from component");
+                this.loading = true;
+
+                var response = await EmployeeService.getEmployees();
+
+                response.forEach(emp => this.employees.push(emp));
+                console.log(this.employees);
+
+            } catch(err) {
+                console.log(err);
+
+            } finally {
+                this.loading = false;
+            }
+        },
+    },
 };
 </script>
 

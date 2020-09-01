@@ -12,7 +12,6 @@
         </section>
 
         <section class="container" id="form-background">
-            <!-- v-bind:style="{ height: formHeight }" -->
             <v-form method="POST" action="">
                 <div class="form-container">
                     <article id="basic-info">
@@ -157,7 +156,7 @@
 </template>
 
 <script>
-import ReqOffer from '@/services/RequestOfferService';
+import EmailService from '@/services/Email';
 import PageFooter from '@/components/Footer';
 
 export default {
@@ -196,7 +195,7 @@ export default {
 
                 this.validateForm();
 
-                var response = await ReqOffer.requestOfferToMav({
+                var response = await EmailService.requestOffer({
                     firstName: this.firstName,
                     lastName: this.lastName,
                     email: this.email,
@@ -306,7 +305,6 @@ export default {
 
         #form-background {
             background-image: url("../../public/images/dark_wood_texure_2.jpg");
-            //box-shadow: 0px -0.5rem 0.1rem rgba(0,0,0,0.8);
             height: 108rem;
         }
 
@@ -395,7 +393,6 @@ export default {
             color: white;
             top: 3rem;
             left: 3rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 3.2rem;
@@ -478,7 +475,6 @@ export default {
             color: white;
             top: 3rem;
             left: 3rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 3.2rem;
@@ -566,7 +562,6 @@ export default {
             color: white;
             top: 2rem;
             left: 1.7rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 2rem;
@@ -579,7 +574,6 @@ export default {
         }
 
         .form-container {
-            //background-color: black;
             position: absolute;
             height: 63rem;
             width: 20rem;
@@ -587,9 +581,6 @@ export default {
         }
 
         #basic-info {
-            //background-color: red;
-            // position: absolute;
-            // height: 20rem;
             width: 20rem;
         }
 
@@ -612,7 +603,6 @@ export default {
 
         .column {
             text-align: left;
-            // width: 30rem;
         }
 
         #name {
@@ -624,11 +614,9 @@ export default {
         }
 
         #property-info {
-            //background-color: red;
             color: white;
             position: absolute;
             height: 68rem;
-            // width: 70rem;
             margin-top: 3.5rem;
         }
 
@@ -638,5 +626,4 @@ export default {
             font-size: 1.1rem;
         }
     }
-
 </style>

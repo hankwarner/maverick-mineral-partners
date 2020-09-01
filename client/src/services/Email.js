@@ -1,25 +1,17 @@
-import Api from '@/services/Api';
+import axios from 'axios';
 
 export default {
-    requestOffer(formData) {
-        try {
-            console.log("requestOffer called");
-            console.log("formData "+JSON.stringify(formData));
-            //Api().post('request-offer', formData);
-        } catch (err) {
-            console.log(err);
-            return res.send(err);
-        }
+    async requestOffer(req) {
+        var path = '/api/request';
+        var response = await axios.post(path, req)
+        
+        return response;
     },
 
-    contactUs(formData) {
-        try {
-            console.log("contactUs called");
-            console.log("formData "+JSON.stringify(formData));
-            //Api().post('contact-us', formData);
-        } catch (err) {
-            console.log(err);
-            return res.send(err);
-        }
-    },
+    async contactUs(req) {
+        var path = '/api/contact';
+        var response = await axios.post(path, req)
+        
+        return response;
+    }
 }
