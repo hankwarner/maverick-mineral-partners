@@ -13,69 +13,28 @@
             </section>
 
             <section class="container" id="bio-container">
-                <div class="individual-bio-container">
-                    <span class="photo-container" id="eric-photo">
+                <div v-for="employee in employees" :key="employee.id" class="individual-bio-container">
+                    <span class="photo-container">
                         <img
-                            src="../../public/images/eric_heringer.jpg"
-                            alt="Eric Heringer headshot"
+                            v-bind:src="employee.image"
+                            alt="Headshot"
                             class="headshots"
-                            id="eric-headshot"
                         >
                     </span>
-                    <span class="text" id="eric-text">
-                        <h2>Eric Heringer</h2>
-                        <h3>PARTNER</h3>
-                        <h4>eheringer@mavmp.com</h4>
-                        <h4>(303) 746-2353</h4>
-                        <a href="https://www.linkedin.com/in/eric-heringer-a48b775a">
+                    <span class="text">
+                        <h2>{{employee.name}}</h2>
+                        <h3>{{employee.title}}</h3>
+                        <h4>{{employee.email}}</h4>
+                        <h4>{{employee.phone}}</h4>
+                        <a v-bind:href="employee.linkedIn">
                             <font-awesome-icon size="2x" :icon="['fab', 'linkedin']" />
                         </a>
-                        <p id="eric-text">
-                            Eric was born and raised in Littleton, Colorado. 
-                            He attended the University of St. Thomas in St. Paul, 
-                            Minnesota where he graduated in 2016 with an undergrad 
-                            in Finance. Soon after graduation, he would realize his 
-                            true calling was in the Oil and Gas and wanted to pursue 
-                            being a third generation landman in his family. Having a 
-                            finance background has helped him start his own company 
-                            but truly enjoys the many encounters with landowners and 
-                            overseeing successful transactions of all shapes and sizes. 
-                            When he is not in the office you can catch him playing pickup 
-                            basketball or cruising on his snowboard.
+                        <p>
+                            {{employee.bio}}
                         </p>
                     </span>
                 </div>
                 <hr>
-                <div class="individual-bio-container">
-                    <span class="photo-container">
-                        <img
-                            src="../../public/images/john_jones.jpg"
-                            alt="John Jones headshot"
-                            class="headshots"
-                            id="john-headshot"
-                        >
-                    </span>
-                    <span class="text">
-                        <h2>John Jones</h2>
-                        <h3>PARTNER</h3>
-                        <h4>jjones@mavmp.com</h4>
-                        <h4>(706) 315–8394</h4>
-                        <a href="https://www.linkedin.com/in/john-jones-3059ab90">
-                            <font-awesome-icon size="2x" :icon="['fab', 'linkedin']" />
-                        </a>
-                        <p id="john-text">
-                            John was born and raised in Columbus, Georgia just south of 
-                            Atlanta. After graduating high school, John attended Auburn 
-                            University which led him to pursue medical device sales for Depuy 
-                            Synthesis. He quickly realized he wanted to explore more options 
-                            outside of the south as well as the medical field. In 2014, John moved 
-                            to Denver where he began to learn about the oil and gas industry. 
-                            Since then, John has developed a passion working with mineral owners 
-                            and other companies alike. When John is out of the office, you can find 
-                            him in the great outdoors with his two dogs, Major and Otis. 
-                        </p>
-                    </span>
-                </div>
             </section>
         </v-content>
         <bottom-banner />
@@ -99,11 +58,6 @@ export default {
         return {
             loading: false,
             employees: [],
-            // name: "",
-            // email: "",
-            // phone: "",
-            // bio: "",
-            // linkedIn: "",
             error: null,
         }
     },
@@ -115,13 +69,12 @@ export default {
     methods: {
         async getEmployees() {
             try {
-                console.log("getEmployees called from component");
                 this.loading = true;
 
                 var response = await EmployeeService.getEmployees();
+                console.log(response);
 
-                response.forEach(emp => this.employees.push(emp));
-                console.log(this.employees);
+                //response.forEach(emp => this.employees.push(emp));
 
             } catch(err) {
                 console.log(err);
@@ -228,7 +181,10 @@ export default {
             height: 26rem;
             width: 38rem;
             text-align: left;
-            // font-family: Perpetua Titling MT;
+        }
+
+        .text:first-of-type {
+            top: 33rem;
         }
 
         h2 {
@@ -240,12 +196,10 @@ export default {
         h3 {
             font-weight: bold;
             font-size: 1.3rem;
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
         }
 
         p {
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
             margin-top: 1rem;
         }
@@ -259,6 +213,10 @@ export default {
             width: 25rem;
         }
 
+        .photo-container:first-of-type {
+            top: 35rem;
+        }
+
         .headshots {
             height: 14rem;
             box-shadow: -2px -2px 2px rgba(34,34,34,0.6);
@@ -268,14 +226,6 @@ export default {
         hr {
             width: 35rem;
             margin-left: 32rem;
-        }
-
-        #eric-photo {
-            top: 35rem;
-        }
-
-        #eric-text {
-            top: 33rem;
         }
     }
 
@@ -296,7 +246,6 @@ export default {
             color: white;
             top: 2.8rem;
             left: 2.8rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 3rem;
@@ -319,23 +268,21 @@ export default {
         h3 {
             font-weight: bold;
             font-size: 1.3rem;
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
         }
 
         p {
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
             margin-top: 1rem;
             margin-left: 1rem;
             margin-right: 1rem;
         }
 
-        #eric-text {
+        .text:first-of-type {
             margin-bottom: 3rem;
         }
 
-        #eric-headshot {
+        .headshots:first-of-type {
             margin-top: 3rem;
         }
 
@@ -370,7 +317,6 @@ export default {
             color: white;
             top: 3rem;
             left: 2.5rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 2.5rem;
@@ -393,23 +339,21 @@ export default {
         h3 {
             font-weight: bold;
             font-size: 1.3rem;
-            //font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
         }
 
         p {
-            //font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
             margin-top: 1rem;
             margin-left: 1rem;
             margin-right: 1rem;
         }
 
-        #eric-text {
+        .text:first-of-type {
             margin-bottom: 3rem;
         }
 
-        #eric-headshot {
+        .headshots:first-of-type{
             margin-top: 3rem;
         }
 
@@ -450,14 +394,12 @@ export default {
             color: white;
             top: 2rem;
             left: 3rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 2.5rem;
         }
-
-        #eric-headshot {
-            margin-top: 5rem;
+        .headshots:first-of-type {
+            margin-top: 3rem;
         }
 
         #john-headshot {
@@ -473,20 +415,17 @@ export default {
         h3 {
             font-weight: bold;
             font-size: 1.3rem;
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
         }
 
         p {
-            // font-family: Open Sans,sans-serif;
             font-family: Bitter,serif;
             margin-top: 1rem;
             margin-left: 1rem;
             margin-right: 1rem;
-            // margin-bottom: 9rem;
         }
 
-        #eric-text {
+        .text:first-of-type {
             margin-bottom: 4.5rem;
         }
 
@@ -496,7 +435,6 @@ export default {
         }
 
         #john-text {
-            //top: 33rem;
             margin-bottom: 9rem;
         }
     }
