@@ -74,10 +74,14 @@ export default {
                 var response = await EmployeeService.getEmployees();
                 console.log(response);
 
-                //response.forEach(emp => this.employees.push(emp));
+                for(var emp of response){
+                    this.employees.push(emp);
+                }
+                console.log(this.employees);
 
             } catch(err) {
                 console.log(err);
+                this.error = err.message;
 
             } finally {
                 this.loading = false;
@@ -112,21 +116,6 @@ export default {
         color: black;
     }
 
-
-    // X-Large
-    @media only screen and (min-width: 90.063em) {
-        // .individual-bio-container {
-        //     height: 28rem;
-        //     width: 100rem;
-        //     margin: 2rem 12.8rem;
-        // }
-
-        // .text {
-        //     font-size: 5rem;
-        // }
-    }
-
-
     // Desktop
     @media only screen and (min-width: 64.063em){
         .box {
@@ -144,7 +133,6 @@ export default {
             color: white;
             top: 5rem;
             left: 8rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 3.2rem;
@@ -161,7 +149,6 @@ export default {
         }
 
         .individual-bio-container {
-            //background-color: black;
             height: 28rem;
             width: 70rem;
             margin-top: 2rem;
@@ -290,14 +277,6 @@ export default {
             width: 30rem;
             margin: 0 17rem;
         }
-
-        #john-text {
-            margin-bottom: 5.5rem;
-        }
-
-        #john-headshot {
-            margin-top: 2.5rem;
-        }
     }
 
     // Tablet
@@ -361,16 +340,7 @@ export default {
             width: 30rem;
             margin: 0 8.5rem;
         }
-
-        #john-text {
-            margin-bottom: 5.5rem;
-        }
-
-        #john-headshot {
-            margin-top: 2.5rem;
-        }
     }
-
 
     // Mobile
     @media only screen and (max-width: 40em){
@@ -398,11 +368,8 @@ export default {
             font-weight: bold;
             font-size: 2.5rem;
         }
+        
         .headshots:first-of-type {
-            margin-top: 3rem;
-        }
-
-        #john-headshot {
             margin-top: 3rem;
         }
 
@@ -432,10 +399,6 @@ export default {
         hr {
             width: 15.3rem;
             margin-left: 4.3rem;
-        }
-
-        #john-text {
-            margin-bottom: 9rem;
         }
     }
 </style>

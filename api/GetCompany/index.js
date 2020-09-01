@@ -6,12 +6,12 @@ const { endpoint, key, databaseId } = config;
 const client = new CosmosClient({ endpoint, key });
 
 const database = client.database(databaseId);
-const container = database.container("Employees");
+const container = database.container("Company");
 
 module.exports = async function (context, req) {
     try {
         const { resources } = await container.items
-            .query('SELECT * from c')
+            .query('SELECT * from c WHERE c.id = "1"')
             .fetchAll();
 
         context.res = {

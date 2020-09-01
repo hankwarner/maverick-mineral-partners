@@ -6,7 +6,7 @@ const { endpoint, key, databaseId } = config;
 const client = new CosmosClient({ endpoint, key });
 
 const database = client.database(databaseId);
-const container = database.container("Employees");
+const container = database.container("Testimonials");
 
 module.exports = async function (context, req) {
     try {

@@ -123,7 +123,6 @@ export default {
                 this.error = "The following required fields are missing: ";
                 throw this.error;
             }
-            console.log("Form data is valid");
         },
 
         resetData() {
@@ -185,7 +184,6 @@ export default {
         #form-background {
             background-color: rgba(0,0,0,0.8);
             height: 51rem;
-            //box-shadow: 0px -0.5rem 0.1rem rgba(0,0,0,0.8);
         }
 
         .form-container {
@@ -273,11 +271,9 @@ export default {
         #form-background {
             background-color: rgba(0,0,0,0.8);
             height: 41rem;
-            //box-shadow: 0px -0.5rem 0.1rem rgba(0,0,0,0.8);
         }
 
         .form-container {
-            //position: absolute;
             height: 55rem;
             width: 55rem;
             padding: 2rem;
@@ -384,7 +380,6 @@ export default {
         #form-background {
             background-color: rgba(0,0,0,0.8);
             height: 46.5rem;
-            //box-shadow: 0px -0.5rem 0.1rem rgba(0,0,0,0.8);
         }
 
         .form-container {
@@ -436,5 +431,4 @@ export default {
             font-size: 1.1rem;
         }
     }
-
 </style>

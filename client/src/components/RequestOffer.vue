@@ -10,7 +10,6 @@
                 <span class="inner">Request an Offer</span>
             </div>
         </section>
-
         <section class="container" id="form-background">
             <v-form method="POST" action="">
                 <div class="form-container">
@@ -41,7 +40,6 @@
                             </b-field>
                         </div>
                     </article>
-
                     <article id="property-info">
                         <div class="form-header">
                             <h4>
@@ -53,7 +51,6 @@
                         </div>
                         <hr>
                         <div class="columns">
-                            
                         </div>
                         <div class="columns">
                             <b-field class="column" id="phone-email" label="Property Description">
@@ -297,7 +294,6 @@ export default {
             color: white;
             top: 5rem;
             left: 8rem;
-            //font-family: Perpetua Titling MT;
             font-family: Bitter,serif;
             font-weight: bold;
             font-size: 3.2rem;
@@ -534,7 +530,6 @@ export default {
             font-size: 1.3rem;
         }
     }
-
 
     // Mobile
     @media only screen and (max-width: 40em) {
