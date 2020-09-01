@@ -45,14 +45,6 @@
         color: rgb(145, 108, 67);
     }
     
-    @media only screen and (min-width: 90.063em) { 
-
-    }
-
-    @media only screen and (min-width: 64.063em){
-
-    }
-
     @media only screen and (min-width: 50.01em) and (max-width: 64em) {
         .footer {
             padding: 3.5rem 1.5rem;
@@ -80,7 +72,6 @@
             font-size: 2rem;
         }
     }
-
 
     @media only screen and (max-width: 40em){
         .footer {

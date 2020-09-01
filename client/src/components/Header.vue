@@ -71,5 +71,4 @@
     .request-offer{
         color: white;
     }
-
 </style>

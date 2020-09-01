@@ -183,7 +183,6 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 0.55rem;
-            /* font-weight: bold; */
             font-family: Bitter,serif;
             color: white;
             font-family: Open Sans,sans-serif;
@@ -194,7 +193,6 @@
             top: 58%;
             left: 50%;
             transform: translate(-50%, -50%);
-            /* font-family: Perpetua Titling MT; */
         }
     }
 </style>

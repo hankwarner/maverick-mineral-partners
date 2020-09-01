@@ -16,16 +16,6 @@
                     <div class="slogan">
                         <h1>Maverick Mineral Partners</h1>
                     </div>
-                    <!-- <div class="sub-slogan">
-                        <h4>The remainder of our site is currently under construction. However, please feel free to call us directly with any questions. Thank you.</h4>
-                    </div> -->
-                    <!-- <div class="our-services">
-                        <router-link to="/company">
-                            <b-button type="is-primary" size="is-large">
-                                Our Services
-                            </b-button>
-                        </router-link>
-                    </div> -->
                 </span>
             </div>
         </v-content>
@@ -33,7 +23,6 @@
         <page-footer />
     </div>
 </template>
-
 
 <script>
 import BottomBanner from '@/components/BottomBanner';
@@ -56,7 +45,6 @@ export default {
     
     video {
         max-width: 100%;
-        // opacity: 0.9;
     }
 
     .background {
@@ -65,7 +53,6 @@ export default {
 
     .slogan-backdrop {
         color: black;
-        // position: relative;
     }
 
     .slogan {
@@ -73,16 +60,12 @@ export default {
         top: 40%;
         font-weight: bold;
         font-family: Perpetua Titling MT;
-        //font-family: Bitter,serif;
-        // font-family: Open Sans,sans-serif;
         color: white;
     }
 
     .sub-slogan {
         position: absolute;
         top: 65%;
-        // font-family: Perpetua Titling MT;
-        // font-family: Open Sans,sans-serif;
         font-family: Bitter,serif;
         color: white;
     }
@@ -134,7 +117,6 @@ export default {
         }
     }
 
-
     // iPad Pro
     @media only screen and (min-width: 50.01em) and (max-width: 64em) {
         .container {
@@ -163,7 +145,6 @@ export default {
             height: auto;
         }
     }
-
 
     // Tablet
     @media only screen and (min-width: 40.063em) and (max-width: 50em){
