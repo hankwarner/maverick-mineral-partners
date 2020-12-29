@@ -13,7 +13,7 @@
             </section>
 
             <section class="container" id="bio-container">
-                <div v-for="employee in employees" :key="employee.id" class="individual-bio-container">
+                <div v-for="(employee, index) in employees" :key="employee.id" class="individual-bio-container">
                     <span class="photo-container">
                         <img
                             v-bind:src="employee.image"
@@ -33,8 +33,8 @@
                             {{employee.bio}}
                         </p>
                     </span>
+                    <hr v-if="index != employees.length - 1">
                 </div>
-                <hr>
             </section>
         </v-content>
         <bottom-banner />
@@ -72,9 +72,9 @@ export default {
                 this.loading = true;
 
                 var response = await EmployeeService.getEmployees();
-                console.log(response);
+                console.log(response.data);
 
-                for(var emp of response){
+                for(var emp of response.data){
                     this.employees.push(emp);
                 }
                 console.log(this.employees);
@@ -163,15 +163,10 @@ export default {
         .text {
             background-color: white;
             position: absolute;
-            top: 2rem;
             left: 42rem;
             height: 26rem;
             width: 38rem;
             text-align: left;
-        }
-
-        .text:first-of-type {
-            top: 33rem;
         }
 
         h2 {
@@ -194,14 +189,10 @@ export default {
         .photo-container {
             background-color: white;
             position: absolute;
-            top: 5rem;
+            margin-top: 5%;
             left: 15rem;
             height: 20rem;
             width: 25rem;
-        }
-
-        .photo-container:first-of-type {
-            top: 35rem;
         }
 
         .headshots {
@@ -211,8 +202,10 @@ export default {
         }
 
         hr {
-            width: 35rem;
-            margin-left: 32rem;
+            width: 50%;
+            margin-left: 25%;
+            position: relative;
+            top: 100%
         }
     }
 
