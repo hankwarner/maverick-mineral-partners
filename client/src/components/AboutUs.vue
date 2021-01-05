@@ -209,8 +209,8 @@ export default {
         }
     }
 
-    // iPad Pro
-    @media only screen and (min-width: 50.01em) and (max-width: 64em) {
+    // Tablet
+    @media only screen and (min-width: 40.063em) and (max-width: 64em){
         .box {
             background-color: black;
             position: absolute;
@@ -239,67 +239,12 @@ export default {
             padding: 0 2rem;
         }
 
-        h2 {
-            font-weight: bold;
-            font-size: 2.3rem;
-            font-family: Bitter,serif;
+        .individual-bio-container:first-of-type{
+            margin-top: 5%;
         }
 
-        h3 {
-            font-weight: bold;
-            font-size: 1.3rem;
-            font-family: Bitter,serif;
-        }
-
-        p {
-            font-family: Bitter,serif;
-            margin-top: 1rem;
-            margin-left: 1rem;
-            margin-right: 1rem;
-        }
-
-        .text:first-of-type {
-            margin-bottom: 3rem;
-        }
-
-        .headshots:first-of-type {
-            margin-top: 3rem;
-        }
-
-        hr {
-            width: 30rem;
-            margin: 0 17rem;
-        }
-    }
-
-    // Tablet
-    @media only screen and (min-width: 40.063em) and (max-width: 50em){
-        .box {
-            background-color: black;
-            position: absolute;
-            top: 10rem;
-            left: 5rem;
-            height: 10rem;
-            width: 20rem;
-            opacity: 0.7;
-        }
-
-        .inner {
-            position: absolute;
-            color: white;
-            top: 3rem;
-            left: 2.5rem;
-            font-family: Bitter,serif;
-            font-weight: bold;
-            font-size: 2.5rem;
-        }
-
-        .container {
-            margin: 0 1px;
-        }
-
-        .individual-bio-container {
-            padding: 0 2rem;
+        .individual-bio-container:last-of-type{
+            margin-bottom: 10%;
         }
 
         h2 {
@@ -316,22 +261,13 @@ export default {
 
         p {
             font-family: Bitter,serif;
-            margin-top: 1rem;
-            margin-left: 1rem;
-            margin-right: 1rem;
-        }
-
-        .text:first-of-type {
-            margin-bottom: 3rem;
-        }
-
-        .headshots:first-of-type{
-            margin-top: 3rem;
+            margin: 5%;
         }
 
         hr {
-            width: 30rem;
-            margin: 0 8.5rem;
+            width: 50%;
+            margin-left: 25%;
+            margin-bottom: 5%;
         }
     }
 
@@ -361,9 +297,13 @@ export default {
             font-weight: bold;
             font-size: 2.5rem;
         }
-        
-        .headshots:first-of-type {
-            margin-top: 3rem;
+
+        .individual-bio-container:first-of-type{
+            margin-top: 15%;
+        }
+
+        .individual-bio-container:last-of-type{
+            margin-bottom: 35%;
         }
 
         h2 {
@@ -385,13 +325,9 @@ export default {
             margin-right: 1rem;
         }
 
-        .text:first-of-type {
-            margin-bottom: 4.5rem;
-        }
-
         hr {
-            width: 15.3rem;
-            margin-left: 4.3rem;
+            width: 75%;
+            margin: 8% 0 10% 12.5%;
         }
     }
 </style>
