@@ -1,9 +1,9 @@
-import axios from 'axios';
+import Api from '@/services/api';
 
 export default {
     async getTestimonials() {
-        var path = '/api/testimonial';
-        var response = await axios.get(path)
+        var path = 'testimonial';
+        var response = await Api().get(path);
         
         return response;
     }

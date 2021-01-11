@@ -9,7 +9,7 @@
                 </div>
             </section>
             <div class="below-picture">
-                <section v-for="testimonial in testimonials" :key="testimonial.id" class="container" id="bio-container">
+                <section v-for="(testimonial, index) in testimonials" :key="testimonial.id" class="container" id="bio-container">
                     <div class="individual-testimonial-container">
                         <span class="quote-icon">
                             <font-awesome-icon size="2x" :icon="['fas', 'quote-left']" />
@@ -22,7 +22,7 @@
                             <h3>- {{testimonial.name}}</h3>
                         </span>
                     </div>
-                    <hr>
+                    <hr v-if="index != testimonials.length - 1">
                 </section>
             </div>
         </v-content>
@@ -52,34 +52,30 @@ export default {
         }
     },
 
-    mounted: function () {
+    mounted() {
         this.getTestimonials();
     },
 
-    methods() {
-        return {
-            async getTestimonials() {
-                try {
-                    this.loading = true;
+    methods: {
+        async getTestimonials() {
+            try {
+                this.loading = true;
 
-                    var response = await TestimonialService.getTestimonials();
+                var response = await TestimonialService.getTestimonials();
+                this.testimonials = response.data;
+                console.log(this.testimonials);
 
-                    for(var testimonial of response){
-                        this.testimonials.push(testimonial);
-                    }
+            } catch(err) {
+                console.log(err);
+                this.error = err.message;
 
-                } catch(err) {
-                    console.log(err);
-                    this.error = err.message;
+            } finally {
+                this.loading = false;
+            }
+        },
 
-                } finally {
-                    this.loading = false;
-                }
-            },
-
-            activateReadMore(){
-                this.readMoreActivated = true;
-            },
+        activateReadMore(){
+            this.readMoreActivated = true;
         }
     }
 };
@@ -162,8 +158,15 @@ export default {
             padding-bottom: 2%;
         }
 
+        #bio-container:first-of-type{
+            margin-top: 5%;
+        }
+
+        #bio-container:last-of-type{
+            margin-bottom: 10%;
+        }
+
         .individual-testimonial-container {
-            margin-top: 6% !important;
             padding-top: 2.5rem;
         }
 
@@ -185,7 +188,7 @@ export default {
 
         .text p {
             font-style: italic;
-            margin: 0 5rem;
+            margin: 3%;
         }
 
         .text h3 {
@@ -254,12 +257,19 @@ export default {
         }
 
         .individual-testimonial-container {
-            margin-top: 7% !important;
             padding-top: 2.5rem;
         }
 
         #bio-container {
             margin-bottom: 2rem;
+        }
+
+        #bio-container:first-of-type{
+            margin-top: 7%;
+        }
+
+        #bio-container:last-of-type{
+            margin-bottom: 12%;
         }
 
         .text {
@@ -272,7 +282,7 @@ export default {
 
         .text p {
             font-style: italic;
-            margin: 0 5rem;
+            margin: 5%;
         }
 
         .text h3 {
@@ -334,8 +344,15 @@ export default {
             padding-bottom: 5%;
         }
 
+        #bio-container:first-of-type{
+            margin-top: 10%;
+        }
+
+        #bio-container:last-of-type{
+            margin-bottom: 10%;
+        }
+
         .individual-testimonial-container {
-            margin-top: 12% !important;
             padding-top: 2.5rem;
         }
 
@@ -416,23 +433,16 @@ export default {
             padding-bottom: 5%;
         }
 
-        .individual-testimonial-container-1 {
-            margin-top: 12% !important;
+        #bio-container:first-of-type{
+            margin-top: 13%;
+        }
+
+        #bio-container:last-of-type{
+            margin-bottom: 12%;
+        }
+
+        .individual-testimonial-container {
             padding-top: 2.5rem;
-        }
-
-        .individual-testimonial-container-2 {
-            background-color: darkgrey;
-            padding-top: 3rem;
-        }
-
-        .individual-testimonial-container-3 {
-            padding-top: 2rem;
-        }
-
-        .individual-testimonial-container-4 {
-            padding-top: 2rem;
-            margin-bottom: 12% !important;
         }
 
         .quote-icon {
@@ -512,23 +522,16 @@ export default {
             padding-bottom: 10%;
         }
 
-        .individual-testimonial-container-1 {
-            margin-top: 25% !important;
+        #bio-container:first-of-type{
+            margin-top: 20%;
+        }
+
+        #bio-container:last-of-type{
+            margin-bottom: 40%;
+        }
+
+        .individual-testimonial-container {
             padding-top: 2.5rem;
-        }
-
-        .individual-testimonial-container-2 {
-            background-color: darkgrey;
-            padding-top: 3rem;
-        }
-
-        .individual-testimonial-container-3 {
-            padding-top: 2rem;
-        }
-
-        .individual-testimonial-container-4 {
-            padding-top: 2rem;
-            margin-bottom: 40% !important;
         }
 
         .quote-icon {
