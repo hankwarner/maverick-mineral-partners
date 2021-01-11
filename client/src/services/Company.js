@@ -1,9 +1,9 @@
-import axios from 'axios';
+import Api from '@/services/api';
 
 export default {
     async getCompanyInfo() {
-        var path = '/api/company';
-        var response = await axios.get(path)
+        var path = 'company';
+        var response = await Api().get(path);
         
         return response;
     }

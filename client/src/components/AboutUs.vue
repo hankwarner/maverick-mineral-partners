@@ -16,7 +16,7 @@
                 <div v-for="(employee, index) in employees" :key="employee.id" class="individual-bio-container">
                     <span class="photo-container">
                         <img
-                            v-bind:src="employee.image"
+                            :src="require(`../../public/images/${employee.image}`)"
                             alt="Headshot"
                             class="headshots"
                         >
@@ -49,20 +49,20 @@ import PageFooter from '@/components/Footer';
 import EmployeeService from '@/services/Employee';
 
 export default {
-  components: {
-    BottomBanner,
-    PageFooter
-  },
+    components: {
+        BottomBanner,
+        PageFooter
+    },
 
-  data() {
+    data() {
         return {
             loading: false,
             employees: [],
-            error: null,
+            error: null
         }
     },
 
-    mounted: function () {
+    mounted() {
         this.getEmployees();
     },
 
@@ -72,11 +72,7 @@ export default {
                 this.loading = true;
 
                 var response = await EmployeeService.getEmployees();
-                console.log(response.data);
-
-                for(var emp of response.data){
-                    this.employees.push(emp);
-                }
+                this.employees = response.data;
                 console.log(this.employees);
 
             } catch(err) {
