@@ -16,7 +16,7 @@
                 <div v-for="(employee, index) in employees" :key="employee.id" class="individual-bio-container">
                     <span class="photo-container">
                         <img
-                            v-bind:src="employee.image"
+                            :src="require(`../../public/images/${employee.image}`)"
                             alt="Headshot"
                             class="headshots"
                         >
@@ -49,16 +49,17 @@ import PageFooter from '@/components/Footer';
 import EmployeeService from '@/services/Employee';
 
 export default {
-  components: {
-    BottomBanner,
-    PageFooter
-  },
+    components: {
+        BottomBanner,
+        PageFooter
+    },
 
-  data() {
+    data() {
         return {
             loading: false,
             employees: [],
             error: null,
+            imageUrl: '../../public/images/john_jones.jpg'
         }
     },
 
