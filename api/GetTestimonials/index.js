@@ -10,12 +10,20 @@ const container = database.container("Testimonials");
 
 module.exports = async function (context, req) {
     try {
-        const { resources } = await container.items
-            .query('SELECT * from c')
+        console.log("company api reached.");
+        const querySpec = {
+            query: 'SELECT * from c'
+        };
+        const { resources: items } = await container.items
+            .query(querySpec)
             .fetchAll();
+        console.log("resources " + JSON.stringify(items));
 
         context.res = {
-            body: resources
+            body: items,
+            headers: {
+                'Access-Control-Allow-Origin': process.env.ORIGIN
+            }
         };
 
     } catch (err) {
