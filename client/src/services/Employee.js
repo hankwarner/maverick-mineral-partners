@@ -1,4 +1,4 @@
-import Api from '@/services/api';
+import Api from './Api';
 
 export default {
     async getEmployees() {
