@@ -9,13 +9,13 @@
                     <section class="inner-container">
                         <div class="individual-bio-container">
                             <span class="text" id="company-bio">
-                                <h3>{{company.name}}</h3> <br>
+                                <h3>{{companyInfo.name}}</h3> <br>
                                 <p>
-                                    {{company.bio}}
+                                    {{companyInfo.bio}}
                                 </p>
                                 <p style="font-weight: bold;">
                                     LinkedIn: 
-                                    <a class="linked-in-logo" v-bind:href="company.linkedIn">
+                                    <a class="linked-in-logo" v-bind:href="companyInfo.linkedIn">
                                         <font-awesome-icon size="2x" :icon="['fab', 'linkedin']" />
                                     </a>
                                 </p>
@@ -56,31 +56,30 @@ export default {
         }
     },
 
-    mounted: function () {
+    mounted() {
         this.getCompanyInfo();
     },
 
-    methods() {
-        return {
-            async getCompanyInfo() {
-                try {
-                    this.loading = true;
+    methods: {
+        async getCompanyInfo() {
+            try {
+                this.loading = true;
 
-                    this.companyInfo = await CompanyService.getCompanyInfo();
+                let response = await CompanyService.getCompanyInfo();
+                this.companyInfo = response.data;
 
-                } catch(err) {
-                    console.log(err);
-                    this.error = err.message;
+            } catch(err) {
+                console.log(err);
+                this.error = err.message;
 
-                } finally {
-                    this.loading = false;
-                }
-            },
+            } finally {
+                this.loading = false;
+            }
+        },
 
-            activateReadMore(){
-                this.readMoreActivated = true;
-            },
-        }
+        activateReadMore(){
+            this.readMoreActivated = true;
+        },
     }
 };
 </script>
@@ -185,7 +184,7 @@ export default {
 
         .photo-container {
             position: absolute;
-            top: 9rem;
+            margin-top: 17%;
             left: 2rem;
             height: 20rem;
             width: 40rem;
@@ -287,15 +286,14 @@ export default {
 
         .photo-container {
             position: absolute;
-            top: 95rem;
+            margin-top: 85%;
             left: 5.5rem;
             top: 9rem;
         }
 
         .company-photo {
             width: 50rem;
-            margin-top: 4rem;
-            margin-bottom: 1rem;
+            margin-top: 80%;
             box-shadow: -2px -2px 2px rgba(34,34,34,0.6);
             border-radius: 8px;
         }
@@ -386,15 +384,14 @@ export default {
 
         .photo-container {
             position: absolute;
-            top: 85rem;
+            margin-top: 85%;
             left: 1rem;
             right: 1rem;
         }
 
         .company-photo {
             width: 35rem;
-            margin-top: 3rem;
-            margin-bottom: 1rem;
+            margin-top: 95%;
             box-shadow: -2px -2px 2px rgba(34,34,34,0.6);
             border-radius: 8px;
         }
@@ -488,9 +485,7 @@ export default {
 
         .company-photo {
             width: 28rem;
-            margin-top: 3rem;
-            margin-right: 1rem;
-            margin-bottom: 4rem;
+            margin-top: 13%;
             box-shadow: -2px -2px 2px rgba(34,34,34,0.6);
             border-radius: 8px;
         }

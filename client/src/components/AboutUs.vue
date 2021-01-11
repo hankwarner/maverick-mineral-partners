@@ -58,12 +58,11 @@ export default {
         return {
             loading: false,
             employees: [],
-            error: null,
-            imageUrl: '../../public/images/john_jones.jpg'
+            error: null
         }
     },
 
-    mounted: function () {
+    mounted() {
         this.getEmployees();
     },
 
@@ -73,11 +72,7 @@ export default {
                 this.loading = true;
 
                 var response = await EmployeeService.getEmployees();
-                console.log(response.data);
-
-                for(var emp of response.data){
-                    this.employees.push(emp);
-                }
+                this.employees = response.data;
                 console.log(this.employees);
 
             } catch(err) {
