@@ -25,7 +25,9 @@
                                 <b-input v-model.trim="$v.name.$model"></b-input>
                             </b-field>
                         </div>
-                        <b-message v-if="$v.name.$error" type="is-danger">Name is required.</b-message>
+                        <b-message v-if="$v.name.$error" type="is-danger">
+                            Name is required.
+                        </b-message>
                         <div class="form-group">
                             <b-field class="form-label" id="phone-email" label="Email">
                                 <b-input v-model.trim="email"></b-input>
@@ -39,7 +41,9 @@
                                 <b-input v-model.trim="$v.question.$model" maxlength="200" type="textarea"></b-input>
                             </b-field>
                         </div>
-                        <b-message type="is-danger" v-if="$v.question.$error">Please complete the question above.</b-message>
+                        <b-message type="is-danger" v-if="$v.question.$error">
+                            Please complete the question above.
+                        </b-message>
                         <div class="buttons">
                             <b-button 
                                 v-if="$v.$invalid" disabled expanded>
@@ -51,12 +55,12 @@
                             </b-button>
                             <b-loading :active.sync="loading" :can-cancel="true"></b-loading>
                         </div>
-                        <b-message v-if="success" type="is-success" has-icon>
+                        <b-notification v-if="success" type="is-success" has-icon>
                             {{successMessage}}
-                        </b-message>
-                        <b-message v-if="error" type="is-danger" has-icon>
+                        </b-notification>
+                        <b-notification v-if="error" type="is-danger" has-icon>
                             {{error}}
-                        </b-message>
+                        </b-notification>
                     </article>
                 </div>
             </v-form>
@@ -103,6 +107,7 @@ export default {
             this.error = null;
 
             try {
+                // Run form validation
                 this.$v.$touch();
 
                 if(this.$v.$invalid){
@@ -121,9 +126,9 @@ export default {
                     this.resetData();
                 }
             } catch(err) {
+                console.log(err);
                 this.error = 'There was a problem submitting your request. Please try again later.';
                 this.success = false;
-                console.log(err);
 
             } finally {
                 this.loading = false;
@@ -191,20 +196,17 @@ export default {
 
         #form-background {
             background-color: rgba(0,0,0,0.8);
-            height: 54rem;
         }
 
         .form-container {
-            position: absolute;
-            height: 45.5rem;
+            position: relative;
             width: 70rem;
-            margin-top: 5.5rem;
             margin-left: 12.5rem;
+            padding: 3% 0;
         }
 
         #basic-info {
-            position: absolute;
-            height: 30rem;
+            position: relative;
             width: 70rem;
         }
 
@@ -232,20 +234,6 @@ export default {
 
         #phone-email {
             margin-top: 2rem;
-        }
-
-        #property-info {
-            color: white;
-            position: absolute;
-            height: 68rem;
-            width: 70rem;
-            margin-top: 30rem;
-        }
-
-        .property-question {
-            margin-bottom: 1rem;
-            font-family: 'Avenir', Helvetica, Arial, sans-serif;
-            font-size: 1.1rem;
         }
     }
 
@@ -278,11 +266,9 @@ export default {
 
         #form-background {
             background-color: rgba(0,0,0,0.8);
-            height: 43rem;
         }
 
         .form-container {
-            height: 55rem;
             width: 55rem;
             padding: 2rem;
             margin: 0 2.5rem;
@@ -330,11 +316,9 @@ export default {
 
         #form-background {
             background-color: rgba(0,0,0,0.8);
-            height: 49rem;
         }
 
         .form-container {
-            height: 55rem;
             width: 40rem;
             padding: 2rem;
             margin: 0 4rem;
@@ -387,14 +371,13 @@ export default {
 
         #form-background {
             background-color: rgba(0,0,0,0.8);
-            height: 48.5rem;
         }
 
         .form-container {
-            position: absolute;
-            height: 63rem;
+            position: relative;
             width: 20rem;
             margin: 1.4rem;
+            padding: 10% 0;
         }
 
         #basic-info {
@@ -424,19 +407,6 @@ export default {
 
         #phone-email {
             margin-top: 2rem;
-        }
-
-        #property-info {
-            color: white;
-            position: absolute;
-            height: 68rem;
-            margin-top: 3.5rem;
-        }
-
-        .property-question {
-            margin-bottom: 1rem;
-            font-family: 'Avenir', Helvetica, Arial, sans-serif;
-            font-size: 1.1rem;
         }
     }
 </style>
