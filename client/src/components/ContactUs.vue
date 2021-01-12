@@ -11,7 +11,7 @@
             </div>
         </section>
         <section class="container" id="form-background">
-            <v-form method="POST" action="">
+            <v-form method="POST">
                 <div class="form-container">
                     <article id="basic-info">
                         <div class="form-header">
@@ -20,27 +20,35 @@
                             </h2>
                         </div>
                         <hr>
-                        <div class="columns">
-                            <b-field class="column" id="name" label="Name*">
-                            <b-input v-model="name"></b-input>
-                            </b-field>
-
-                        </div>
-                        <div class="columns">
-                            <b-field class="column" id="phone-email" label="Email">
-                                <b-input v-model="email"></b-input>
-                            </b-field>
-                            <b-field class="column" id="phone-email" label="Phone">
-                                <b-input v-model="phone"></b-input>
+                        <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
+                            <b-field class="form-label" id="name" label="Name*">
+                                <b-input v-model.trim="$v.name.$model"></b-input>
                             </b-field>
                         </div>
-                        <div class="columns">
-                            <b-field class="column" id="phone-email" label="How may we assist you?*">
-                                <b-input v-model="question" maxlength="200" type="textarea"></b-input>
+                        <b-message v-if="$v.name.$error" type="is-danger">Name is required.</b-message>
+                        <div class="form-group">
+                            <b-field class="form-label" id="phone-email" label="Email">
+                                <b-input v-model.trim="email"></b-input>
+                            </b-field>
+                            <b-field class="form-label" id="phone-email" label="Phone">
+                                <b-input v-model.trim="phone"></b-input>
                             </b-field>
                         </div>
+                        <div class="form-group" :class="{ 'form-group--error': $v.question.$error }">
+                            <b-field class="form-label" id="phone-email" label="How may we assist you?*">
+                                <b-input v-model.trim="$v.question.$model" maxlength="200" type="textarea"></b-input>
+                            </b-field>
+                        </div>
+                        <b-message type="is-danger" v-if="$v.question.$error">Please complete the question above.</b-message>
                         <div class="buttons">
-                            <b-button @click="contactUs" type="is-success" expanded>Submit</b-button>
+                            <b-button 
+                                v-if="$v.$invalid" disabled expanded>
+                                    Submit
+                            </b-button>
+                            <b-button 
+                                v-else @click="contactUs" type="is-success" expanded>
+                                    Submit
+                            </b-button>
                             <b-loading :active.sync="loading" :can-cancel="true"></b-loading>
                         </div>
                         <b-message v-if="success" type="is-success" has-icon>
@@ -48,7 +56,6 @@
                         </b-message>
                         <b-message v-if="error" type="is-danger" has-icon>
                             {{error}}
-                            {{errors}}
                         </b-message>
                     </article>
                 </div>
@@ -61,6 +68,7 @@
 <script>
 import EmailService from '@/services/Email';
 import PageFooter from '@/components/Footer';
+import { required, minLength, between } from 'vuelidate/lib/validators'
 
 export default {
     components: {
@@ -70,61 +78,57 @@ export default {
     data() {
         return {
             loading: false,
-            name: "",
-            email: "",
-            phone: "",
-            question: "",
-            requiredFields: ["name", "question"],
+            name: '',
+            email: '',
+            phone: '',
+            question: '',
             error: null,
-            errors: [],
-            errorMessage: "There's been a problem with your request. Please try again later.",
             success: null,
-            successMessage: "Message successfully delivered!",
+            successMessage: 'Message successfully delivered!',
+        }
+    },
+
+    validations: {
+        name: {
+            required
+        },
+        question: {
+            required
         }
     },
 
     methods: {
         async contactUs() {
             this.loading = true;
+            this.error = null;
 
             try {
-                this.validateForm();
+                this.$v.$touch();
 
-                var response = await EmailService.contactUs({
-                    name: this.name,
-                    email: this.email,
-                    phone: this.phone,
-                    question: this.question,
-                });
+                if(this.$v.$invalid){
+                    this.error = 'Please ensure all required fields are completed.';
+                    this.success = false;
 
-                this.success = true;
-                this.resetData();
+                } else {
+                    var response = await EmailService.contactUs({
+                        name: this.name,
+                        email: this.email,
+                        phone: this.phone,
+                        question: this.question,
+                    });
 
+                    this.success = true;
+                    this.resetData();
+                }
             } catch(err) {
-                console.log(err);
+                this.error = 'There was a problem submitting your request. Please try again later.';
                 this.success = false;
+                console.log(err);
 
             } finally {
                 this.loading = false;
             }
         },
-
-        validateForm(){
-            this.errors = [];
-            this.error = null;
-            
-            this.requiredFields.forEach(field => {
-                if(!this[field]) {
-                    this.errors.push(field);
-                }
-            });
-
-            if(this.errors.length){
-                this.error = "The following required fields are missing: ";
-                throw this.error;
-            }
-        },
-
         resetData() {
             this.name = "";
             this.email = "";
@@ -149,6 +153,10 @@ export default {
 
     .buttons {
         font-family: Bitter,serif;
+    }
+
+    .form-group{
+        margin-bottom: .5%;
     }
 
     @media only screen and (min-width: 64.063em){
@@ -183,7 +191,7 @@ export default {
 
         #form-background {
             background-color: rgba(0,0,0,0.8);
-            height: 51rem;
+            height: 54rem;
         }
 
         .form-container {
@@ -213,7 +221,7 @@ export default {
             height: 0.1rem;
         }
 
-        .column {
+        .form-label {
             text-align: left;
             width: 30rem;
         }
@@ -270,7 +278,7 @@ export default {
 
         #form-background {
             background-color: rgba(0,0,0,0.8);
-            height: 41rem;
+            height: 43rem;
         }
 
         .form-container {
@@ -287,7 +295,7 @@ export default {
             color: white;
         }
 
-        .column {
+        .form-label {
             text-align: left;
             width: 30rem;
         }
@@ -322,7 +330,7 @@ export default {
 
         #form-background {
             background-color: rgba(0,0,0,0.8);
-            height: 46rem;
+            height: 49rem;
         }
 
         .form-container {
@@ -339,7 +347,7 @@ export default {
             color: white;
         }
 
-        .column {
+        .form-label {
             text-align: left;
             width: 37.5rem;
         }
@@ -379,7 +387,7 @@ export default {
 
         #form-background {
             background-color: rgba(0,0,0,0.8);
-            height: 46.5rem;
+            height: 48.5rem;
         }
 
         .form-container {
@@ -406,7 +414,7 @@ export default {
             height: 0.1rem;
         }
 
-        .column {
+        .form-label {
             text-align: left;
         }
 

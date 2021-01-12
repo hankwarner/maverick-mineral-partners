@@ -6,6 +6,7 @@ import { faFacebook, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import Vue from 'vue';
 import Buefy from 'buefy';
+import Vuelidate from 'vuelidate';
 import 'buefy/dist/buefy.css';
 import App from './App';
 import router from './router';
@@ -17,6 +18,7 @@ library.add(faFacebook, faLinkedin, faQuoteLeft);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(Buefy);
+Vue.use(Vuelidate);
 
 new Vue({
   el: '#app',
