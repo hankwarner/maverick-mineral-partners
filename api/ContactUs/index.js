@@ -36,7 +36,10 @@ module.exports = {
 				body: {
 					status: 200,
 					text: "Email successfully sent."
-				}
+                },
+                headers: {
+                    'Access-Control-Allow-Origin': process.env.ORIGIN
+                }
 			};
 
         } catch(err) {

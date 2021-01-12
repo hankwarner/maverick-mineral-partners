@@ -11,7 +11,7 @@
       </div>
     </section>
     <section class="container" id="form-background">
-      <v-form method="POST" action="">
+      <v-form method="POST">
         <div class="form-container">
           <article id="basic-info">
             <div class="form-header">
@@ -24,21 +24,56 @@
             </div>
             <hr />
             <div class="columns">
-              <b-field class="column" id="name" label="First Name*">
-                <b-input v-model="firstName"></b-input>
+              <b-field
+                class="column"
+                id="name"
+                label="First Name*"
+                :class="{ 'column--error': $v.firstName.$error }"
+              >
+                <b-input v-model.trim="$v.firstName.$model"></b-input>
               </b-field>
-              <b-field class="column" id="name" label="Last Name*">
-                <b-input v-model="lastName"></b-input>
+              <b-field
+                class="column"
+                id="name"
+                label="Last Name*"
+                :class="{ 'column--error': $v.lastName.$error }"
+              >
+                <b-input v-model.trim="$v.lastName.$model"></b-input>
               </b-field>
             </div>
+            <b-message
+              v-if="$v.firstName.$error"
+              type="is-danger"
+            >
+              First name is required.
+            </b-message>
+            <b-message v-if="$v.lastName.$error" type="is-danger">
+              Last name is required.
+            </b-message>
             <div class="columns">
-              <b-field class="column" id="phone-email" label="Phone*">
-                <b-input v-model="phone"></b-input>
+              <b-field
+                class="column"
+                id="phone-email"
+                label="Phone*"
+                :class="{ 'column--error': $v.phone.$error }"
+              >
+                <b-input v-model.trim="$v.phone.$model"></b-input>
               </b-field>
-              <b-field class="column" id="phone-email" label="Email">
-                <b-input v-model="email"></b-input>
+              <b-field
+                class="column"
+                id="phone-email"
+                label="Email"
+                :class="{ 'column--error': $v.email.$error }"
+              >
+                <b-input v-model.trim="$v.email.$model"></b-input>
               </b-field>
             </div>
+            <b-message v-if="$v.phone.$error" type="is-danger">
+              Phone number is required.
+            </b-message>
+            <b-message v-if="$v.email.$error" type="is-danger">
+              Please provide a valid email address.
+            </b-message>
           </article>
           <article id="property-info">
             <div class="form-header">
@@ -161,18 +196,20 @@
               </b-field>
             </div>
             <div class="buttons">
-              <b-button @click="requestOffer" type="is-success" expanded
-                >Submit</b-button
-              >
+              <b-button v-if="$v.$invalid" disabled expanded>
+                Submit
+              </b-button>
+              <b-button v-else @click="requestOffer" type="is-success" expanded>
+                Submit
+              </b-button>
               <b-loading :active.sync="loading" :can-cancel="true"></b-loading>
             </div>
-            <b-message v-if="success" type="is-success" has-icon>
+            <b-notification v-if="success" type="is-success" has-icon>
               {{ successMessage }}
-            </b-message>
-            <b-message v-if="error" type="is-danger" has-icon>
+            </b-notification>
+            <b-notification v-if="error" type="is-danger" has-icon>
               {{ error }}
-              {{ errors }}
-            </b-message>
+            </b-notification>
           </article>
         </div>
       </v-form>
@@ -184,6 +221,7 @@
 <script>
 import EmailService from "@/services/Email";
 import PageFooter from "@/components/Footer";
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
   components: {
@@ -209,59 +247,65 @@ export default {
       error: null,
       errors: [],
       success: null,
-      successMessage: "Message successfully delivered!",
-      formHeight: "106rem"
+      successMessage: "Message successfully delivered!"
     };
+  },
+
+  validations: {
+    firstName: {
+      required
+    },
+    lastName: {
+      required
+    },
+    phone: {
+      required
+    },
+    email: {
+      email
+    }
   },
 
   methods: {
     async requestOffer() {
       try {
-        this.loading = true;
+		this.loading = true;
+		this.error = null;
 
-        this.validateForm();
+        // Run form validation
+        this.$v.$touch();
 
-        var response = await EmailService.requestOffer({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          email: this.email,
-          phone: this.phone,
-          address: this.address,
-          description: this.description,
-          acres: this.acres,
-          state: this.state,
-          county: this.county,
-          leased: this.leased,
-          producing: this.producing,
-          comments: this.comments
-        });
+        if (this.$v.$invalid) {
+          this.error = "Please ensure all required fields are completed.";
+		  this.success = false;
+		  
+        } else {
+          var response = await EmailService.requestOffer({
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            phone: this.phone,
+            address: this.address,
+            description: this.description,
+            acres: this.acres,
+            state: this.state,
+            county: this.county,
+            leased: this.leased,
+            producing: this.producing,
+            comments: this.comments
+          });
 
-        this.success = true;
-        this.resetData();
+          this.success = true;
+          this.resetData();
+        }
       } catch (err) {
-        console.log(err);
-        this.success = false;
+		console.log(err);
+		this.error = 'There was a problem submitting your request. Please try again later.';
+		this.success = false;
+		
       } finally {
         this.loading = false;
-        this.formHeight = "108rem";
       }
-    },
-
-    validateForm() {
-      this.errors = [];
-      this.error = null;
-
-      this.requiredFields.forEach(field => {
-        if (!this[field]) {
-          this.errors.push(field);
-        }
-      });
-
-      if (this.errors.length) {
-        this.error = "The following required fields are missing: ";
-        throw this.error;
-      }
-      console.log("Form data is valid");
     },
 
     resetData() {
@@ -296,6 +340,11 @@ export default {
   font-family: Bitter, serif;
 }
 
+.checkbox:hover,
+.radio:hover {
+  color: #23d160;
+}
+
 @media only screen and (min-width: 64.063em) {
   .container {
     top: 0.3rem;
@@ -328,20 +377,17 @@ export default {
 
   #form-background {
     background-image: url("../../public/images/dark_wood_texure_2.jpg");
-    height: 108rem;
   }
 
   .form-container {
-    position: absolute;
-    height: 73rem;
+    position: relative;
     width: 70rem;
-    margin-top: 5.5rem;
     margin-left: 12.5rem;
+    padding: 5% 0;
   }
 
   #basic-info {
-    position: absolute;
-    height: 30rem;
+    position: relative;
     width: 70rem;
   }
 
@@ -377,10 +423,9 @@ export default {
 
   #property-info {
     color: white;
-    position: absolute;
-    height: 68rem;
+    position: relative;
     width: 70rem;
-    margin-top: 30rem;
+    margin-top: 5%;
   }
 
   .property-question {
@@ -422,14 +467,13 @@ export default {
 
   #form-background {
     background-image: url("../../public/images/dark_wood_texure_2.jpg");
-    height: 100rem;
   }
 
   .form-container {
-    position: absolute;
-    height: 73rem;
+    position: relative;
     width: 50rem;
-    margin: 5rem 6.5rem;
+    margin: 0 6.5rem;
+    padding: 5% 0;
   }
 
   .form-header {
@@ -458,8 +502,7 @@ export default {
 
   #property-info {
     color: white;
-    position: absolute;
-    height: 68rem;
+    position: relative;
     width: 50rem;
     margin-top: 3rem;
   }
@@ -503,14 +546,13 @@ export default {
 
   #form-background {
     background-image: url("../../public/images/dark_wood_texure_2.jpg");
-    height: 132rem;
   }
 
   .form-container {
-    position: absolute;
-    height: 73rem;
+    position: relative;
     width: 28.5rem;
-    margin: 5rem 10rem;
+    margin: 0 10rem;
+    padding: 10% 0;
   }
 
   .form-header {
@@ -539,8 +581,7 @@ export default {
 
   #property-info {
     color: white;
-    position: absolute;
-    height: 68rem;
+    position: relative;
     width: 28.5rem;
     margin-top: 3rem;
   }
@@ -589,15 +630,14 @@ export default {
 
   #form-background {
     background-image: url("../../public/images/dark_wood_texure_2.jpg");
-    height: 122.5rem;
     box-shadow: 0px -0.5rem 0.1rem rgba(0, 0, 0, 0.8);
   }
 
   .form-container {
-    position: absolute;
-    height: 63rem;
+    position: relative;
     width: 20rem;
-    margin: 1.4rem;
+    margin: 0 1.4rem;
+    padding: 15% 0;
   }
 
   #basic-info {
@@ -635,8 +675,7 @@ export default {
 
   #property-info {
     color: white;
-    position: absolute;
-    height: 68rem;
+    position: relative;
     margin-top: 3.5rem;
   }
 
