@@ -231,18 +231,18 @@ export default {
   data() {
     return {
       loading: false,
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      address: "",
-      description: "",
-      acres: "",
-      state: "",
-      county: "",
-      leased: "",
-      producing: "",
-      comments: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      address: '',
+      description: '',
+      acres: '',
+      state: '',
+      county: '',
+      leased: '',
+      producing: '',
+      comments: '',
       requiredFields: ["firstName", "lastName", "phone"],
       error: null,
       errors: [],
@@ -269,15 +269,15 @@ export default {
   methods: {
     async requestOffer() {
       try {
-		this.loading = true;
-		this.error = null;
+        this.loading = true;
+        this.error = null;
 
-        // Run form validation
+        // Run form validation. Sets $dirty to true
         this.$v.$touch();
 
         if (this.$v.$invalid) {
           this.error = "Please ensure all required fields are completed.";
-		  this.success = false;
+		      this.success = false;
 		  
         } else {
           var response = await EmailService.requestOffer({
@@ -297,11 +297,14 @@ export default {
 
           this.success = true;
           this.resetData();
+
+          // Clear form validation so error messages won't show after form is cleared. Sets $dirty to false
+          this.$v.$reset();
         }
       } catch (err) {
-		console.log(err);
-		this.error = 'There was a problem submitting your request. Please try again later.';
-		this.success = false;
+        console.log(err);
+        this.error = 'There was a problem submitting your request. Please try again later.';
+        this.success = false;
 		
       } finally {
         this.loading = false;
@@ -309,18 +312,18 @@ export default {
     },
 
     resetData() {
-      this.firstName = "";
-      this.lastName = "";
-      this.email = "";
-      this.phone = "";
-      this.address = "";
-      this.description = "";
-      this.acres = "";
-      this.state = "";
-      this.county = "";
-      this.leased = "";
-      this.producing = "";
-      this.comments = "";
+      this.firstName = '';
+      this.lastName = '';
+      this.email = '';
+      this.phone = '';
+      this.address = '';
+      this.description = '';
+      this.acres = '';
+      this.state = '';
+      this.county = '';
+      this.leased = '';
+      this.producing = '';
+      this.comments = '';
     }
   }
 };
