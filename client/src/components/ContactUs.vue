@@ -124,6 +124,9 @@ export default {
 
                     this.success = true;
                     this.resetData();
+
+                    // Clear form validation so error messages won't show after form is cleared. Sets $dirty to false
+                    this.$v.$reset();
                 }
             } catch(err) {
                 console.log(err);
