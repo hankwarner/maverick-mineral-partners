@@ -23,7 +23,6 @@
     "buefy": "^0.8.8",
     "node-sass": "^4.14.1",
     "sass-loader": "^7.3.1",
-    "uninstall": "0.0.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuelidate": "^0.7.6"

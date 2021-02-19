@@ -25,18 +25,19 @@
             <hr />
             <div class="columns">
               <b-field
-                class="column"
                 id="name"
                 label="First Name*"
-                :class="{ 'column--error': $v.firstName.$error }"
+                class="column"
               >
-                <b-input v-model.trim="$v.firstName.$model"></b-input>
+                <b-input 
+                  v-model.trim="$v.firstName.$model"
+                  :class="{ 'input--error': $v.firstName.$error }"
+                ></b-input>
               </b-field>
               <b-field
-                class="column"
                 id="name"
                 label="Last Name*"
-                :class="{ 'column--error': $v.lastName.$error }"
+                :class="{ column: true, 'column--error': $v.lastName.$error }"
               >
                 <b-input v-model.trim="$v.lastName.$model"></b-input>
               </b-field>
@@ -52,18 +53,16 @@
             </b-message>
             <div class="columns">
               <b-field
-                class="column"
                 id="phone-email"
                 label="Phone*"
-                :class="{ 'column--error': $v.phone.$error }"
+                :class="{ column: true, 'column--error': $v.phone.$error }"
               >
                 <b-input v-model.trim="$v.phone.$model"></b-input>
               </b-field>
               <b-field
-                class="column"
                 id="phone-email"
                 label="Email"
-                :class="{ 'column--error': $v.email.$error }"
+                :class="{ column: true, 'column--error': $v.email.$error }"
               >
                 <b-input v-model.trim="$v.email.$model"></b-input>
               </b-field>
@@ -346,6 +345,10 @@ export default {
 .checkbox:hover,
 .radio:hover {
   color: #23d160;
+}
+
+.input--error{
+  border-color: red;
 }
 
 @media only screen and (min-width: 64.063em) {

@@ -20,7 +20,7 @@
                             </h2>
                         </div>
                         <hr>
-                        <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
+                        <div :class="{ 'form-group': true, 'form-group--error': $v.name.$error }">
                             <b-field class="form-label" id="name" label="Name*">
                                 <b-input v-model.trim="$v.name.$model"></b-input>
                             </b-field>
@@ -36,7 +36,7 @@
                                 <b-input v-model.trim="phone"></b-input>
                             </b-field>
                         </div>
-                        <div class="form-group" :class="{ 'form-group--error': $v.question.$error }">
+                        <div :class="{ 'form-group': true, 'form-group--error': $v.question.$error }">
                             <b-field class="form-label" id="phone-email" label="How may we assist you?*">
                                 <b-input v-model.trim="$v.question.$model" maxlength="200" type="textarea"></b-input>
                             </b-field>
@@ -137,11 +137,12 @@ export default {
                 this.loading = false;
             }
         },
+        
         resetData() {
-            this.name = "";
-            this.email = "";
-            this.phone = "";
-            this.question = "";
+            this.name = '';
+            this.email = '';
+            this.phone = '';
+            this.question = '';
         }
     },
 }
